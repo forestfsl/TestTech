@@ -27,6 +27,7 @@ class TestHogwards():
         pass
 
     def teardown(self):
+        #加上这个，资源会回收，否则不会回收
         self.driver.quit()
 
     def test_hogwards(self):
