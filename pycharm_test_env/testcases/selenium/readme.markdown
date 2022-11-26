@@ -8,3 +8,6 @@ https://www.selenium.dev/documentation/en/webdriver/driver_requirements/
 #Driver 的安装
 - 找到和自己浏览器版本适配的driver版本(google浏览器右上角->帮助->关于谷歌 会看到有个版本信息，比如说我的是Version 107.0.5304.110)
 - 导入到开发环境变量中
+
+selenium 的文档入门
+https://selenium-python.readthedocs.io/
