@@ -34,3 +34,40 @@ self.driver.implicity_wait(3)
 在代码中定义等待条件，当条件发生时才继续执行代码，WebDriverWait
 撇和until()和unitil_not()方法，根据判断条件进行等待，程序每隔一段时间(默认0.5秒)
 进行条件判断，如果条件成立，则执行下一步，否则继续等待，知道超过设置最长的时间
+
+- element
+![](../../../../../Pictures/Snip20221127_9.png)
+
+- console
+![](../../../../../Pictures/Snip20221127_8.png)
+```
+找到父级的id，然后找父级id下面的b
+$x('//*[@id="s_tab"]//b') 等同于$('#s_tab b')
+
+第一个
+$x('//*[@id="s_tab"]//a[1]')
+最后一个
+$x('//*[@id="s_tab"]//a[last()]')
+
+等同于
+a 父元素的第几个
+('#s_tab a:nth-child(2)')
+最后一个元素(('#s_tab>a:nth-last-child(1)'),这个和下面不一样，这个代表子元素，下面那个子子孙孙)
+('#s_tab a:nth-last-child(1)')
+```
+
+- 百度搜索框的文字
+<input type="text" class="s_ipt" name="wd" id="kw" maxlength="100" autocomplete="off">
+
+```
+$x('//*[@name="wd"]')或者$x('//*[@id="wd"]')
+等同于css的 $('#kw') 或者  $('[id=kw]') $('[name=kw]')
+
+```
+
+- 百度首页
+```
+先找到父级div(u),然后通过u找到a
+
+$x('//*[@id="u"]//a[1]')
+```
