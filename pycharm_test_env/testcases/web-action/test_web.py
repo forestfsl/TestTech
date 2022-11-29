@@ -65,6 +65,7 @@ class TestActionChains():
         sleep(5)
 
 #http://sahitest.com/demo/label.htm
+    @pytest.mark.skip
     def test_keys(self):
         self.driver.get("http://sahitest.com/demo/label.htm")
         ele = self.driver.find_element(by=By.XPATH,value="/html/body/label[1]/input")
@@ -75,6 +76,7 @@ class TestActionChains():
         action.send_keys("tom").pause(1)
         action.send_keys(Keys.BACK_SPACE).perform()
         sleep(3)
+
 
 
 

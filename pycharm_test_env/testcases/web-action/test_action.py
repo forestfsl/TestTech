@@ -28,3 +28,24 @@ action.send_keys(Keys.BACK_SPACE)
 action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL)   
 action.perform()
 """
+
+"""
+TouchAction
+Document:https://www.selenium.dev/selenium/docs/api/py/webdriver/selenium.webdriver.common.touch_actions.html
+https://www.selenium.dev/selenium/docs/api/dotnet/html/T_OpenQA_Selenium_Interactions_TouchActions.htm
+https://support.smartbear.com/crossbrowsertesting/docs/automated-testing/frameworks/selenium/about/selenium-touchactions.html
+类似于ActionChains，ActionChains只是针对PC端程序鼠标模拟的一些列操作，对H5页面操作时无效的，TouchAction可以对h5页面操作，通过TouchAction
+可以实现点击、拖拽、读点触控、与及模拟手势的各种操作
+- 手势控制
+tap:指定元素伤敲击
+double_tap-在指定元素上双敲击
+tap_and_hold 在指定元素伤点击但不释放
+move:手势移动并滚动
+release：释放手势
+scroll：手势点击并滚动
+scroll_from_element：从某个元素位置开始手势点击并滚动(向下为负数，向上为正数)
+long_press:长按元素
+flick:手势滑动
+flick_element:从某个元素位置开始手势滑动
+Perform 执行
+"""
