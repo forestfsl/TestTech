@@ -65,3 +65,8 @@ driver.switch_to.frame("子节点")
 https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable
 打印'请拖拽我'元素的文本
 打印'点击运行'元素的文本
+
+```
+browser=chrome pytest test_window.py
+
+```
