@@ -48,3 +48,4 @@ class TestJS(Base):
         print("打印")
         print('f当前打印日志:{self.driver.find_element(by=By.ID,value="train_date")')
         time.sleep(5)
+
