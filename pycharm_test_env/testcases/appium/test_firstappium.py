@@ -12,6 +12,11 @@ from appium import webdriver
 * daemon started successfully
 List of devices attached
 emulator-5554	offline
+
+m1 电脑，可以安装android studio 然后下载sdk
+ ~/Documents/appium-enviroment/android-sdk-macosx  emulator -list-avds
+Pixel_3a_API_31_arm64-v8a
+ ~/Documents/appium-enviroment/android-sdk-macosx  emulator -avd Pixel_3a_API_31_arm64-v8a
 """
 
 class TestAppium:
@@ -19,7 +24,9 @@ class TestAppium:
     def test_firstappium_demo(self):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
-        desired_caps['platformVersion'] = '6.0'
+        #m1 电脑12 mac pro 6
+        desired_caps['platformVersion'] = '6'
+       # desired_caps['platformVersion'] = '12'
         desired_caps['deviceName'] = 'emulator-5554'
         desired_caps['appPackage'] = 'com.android.settings'
         desired_caps['appActivity'] = 'com.android.settings.Settings'
