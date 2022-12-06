@@ -14,8 +14,11 @@ List of devices attached
 emulator-5554	offline
 """
 
+"""
+若是adb devices 没有输出东西，可以用下面指令连接
+[22:16:37][~]$ adb connect 127.0.0.1:5555 
+"""
 class TestAppium:
-
     def test_firstappium_demo(self):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'

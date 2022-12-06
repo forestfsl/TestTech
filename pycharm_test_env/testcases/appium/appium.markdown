@@ -12,6 +12,7 @@ adb 回车或者adb shell
 
 - 安装appium desktop(appium server + appium inspector 工具)
 1.下载对应的操作系统安装包:https://github.com/appium/appium-desktop/releases
+（https://github.com/appium/appium-desktop）
 2.如果不需要appium inspector,也可以通过npm 直接安装appium
 ```
 官方安装(不推荐)
