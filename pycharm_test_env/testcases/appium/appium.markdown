@@ -69,3 +69,15 @@ apkanalyzer 最新版本sdk才有
 
 启动应用
 adb shell am start -W -n com.xueqiu.android/.view.WelcomeActivityAlias -S
+
+- mac 上安装java
+https://segmentfault.com/a/1190000040495961
+
+```
+pushd ${ANDROID_HOME}/tools
+#模拟器名字可以通过 emulator -avd list 获取
+emulator -avd Pixel_3a_API_31_arm64-v8a
+popd
+
+```
+
