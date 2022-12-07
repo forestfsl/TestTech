@@ -38,3 +38,34 @@ https://pypi,python.org/pypi/Appium-Python-Client
 npm install -g cnpm -registry=https://registry.npm.taobao.org
 cnpm -g install appium-doctor
 - 在命令行执行appium-doctor
+
+
+
+- appium server 配置
+```
+platformName text android
+deviceName text emulator-5554
+appPackage text com.xueqiu.android (adb logcat | grep -i displayed)
+appActivity text .view.WelcomeActivityAlias
+```
+{
+  "platformName": "android",
+  "appium:deviceName": "emulator-5554",
+  "appium:appPackage": "com.xueqiu.android",
+  "appium:appActivity": ".view.WelcomeActivityAlias",
+  "noReset": True
+}
+
+
+- 获取app元素
+app 信息
+1.获取当前界面元素：adb shell dumpsys activity top
+2.获取任务列表: adb shell dumpsys activity activities
+
+app 入口
+adb logcat | grep -i dispalyed
+aapt dump badging mobile.apk | grep launchable-activity
+apkanalyzer 最新版本sdk才有
+
+启动应用
+adb shell am start -W -n com.xueqiu.android/.view.WelcomeActivityAlias -S
