@@ -6,6 +6,7 @@
 """
 import pytest
 from appium import webdriver
+from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from time import  sleep
 
@@ -54,6 +55,7 @@ class TestDw():
         assert current_price > 90
         sleep(3)
 
+    @pytest.mark.skip
     def test_attr(self):
         """
         打开雪球应用首页
@@ -83,7 +85,16 @@ class TestDw():
                 print("搜索失败")
 
 
-
+    def test_touchaction(self):
+        action = TouchAction(self.driver)
+        window_rect = self.driver.get_window_rect()
+        width = window_rect['width']
+        height = window_rect['height']
+        x1 = int(width/2)
+        y_start = int(height * 4/5)
+        y_end = int(height * 1/5)
+        sleep(4)
+        action.press(x=x1,y=y_start).wait(200).move_to(x=x1,y=y_end).release().perform()
 
 
 
