@@ -6,9 +6,13 @@
 """
 import pytest
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from time import  sleep
+
+from selenium.webdriver.remote.mobile import Mobile
+
 
 class TestDw():
     def setup(self):
@@ -47,7 +51,7 @@ class TestDw():
         """
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")
-        ele = self.driver.find_element(by=By.XPATH,value="//*[@resource-id='com.xueqiu.android:id/name' and @text='阿里巴巴']").click()
+        self.driver.find_element(by=By.XPATH,value="//*[@resource-id='com.xueqiu.android:id/name' and @text='阿里巴巴']").click()
         """
         这里当前价格为什么不通过android.widget.TextView 来定义i，是因为这个地方有多处调用
         """
@@ -84,7 +88,7 @@ class TestDw():
             else:
                 print("搜索失败")
 
-
+    @pytest.mark.skip
     def test_touchaction(self):
         action = TouchAction(self.driver)
         window_rect = self.driver.get_window_rect()
@@ -97,6 +101,54 @@ class TestDw():
         action.press(x=x1,y=y_start).wait(200).move_to(x=x1,y=y_end).release().perform()
 
 
+    """
+    //*[@resource-id='com.xueqiu.android:id/title_container']/	
+android.widget.FrameLayout[2] 股票标签的xpath
+    """
+
+    @pytest.mark.skip
+    def test_get_current(self):
+        self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
+        self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")
+        self.driver.find_element(by=By.XPATH,value="//*[@resource-id='com.xueqiu.android:id/name' and @text='阿里巴巴']").click()
+        current_price = self.driver.find_element(by=By.XPATH,value="//*[@text='09988']/../..//*[@resource-id='com.xueqiu.android:id/current_price_dtv']").text
+        print(f"当前09988 对应的股价价格是:{current_price}")
+        assert float(current_price) > 90
+
+    @pytest.mark.skip
+    def test_myinfo(self):
+        """
+        1.点击我的，进入到个人信息页面
+        2.点击登录，进入到登录页面
+        3.输入用户名，输入密码
+        4.点击登录
+        :return:
+        """
+        #这里要是text 包含我的，有多个地方出现，那么久回定义不到，这个时候，我们就可以考虑采取使用resourceId，结合text处理
+        # self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR,value='new UiSelector().resourceId("com.xueqiu.android:id/tab_name").text("我的")').click()
+        self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR,value='new UiSelector().text("我的")').click()
+        #sleep(5)
+        self.driver.find_element(by=By.ID,value="com.xueqiu.android:id/profile_name").click()
+        #sleep(5)
+        self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR,value='new UiSelector().textContains("我的主页")').click()
+        sleep(5)
+        """
+        uiautomator 定位
+        - 父子关系定位 childSelector
+        有时候不能直接定位某个元素，但是它的父元素很好定位，这时候就先定位父元素，通过父元素找儿子
+        son = 'resourceId("com.baidu.yuedu:id/rl_tabs").childSelector(tex("股票"))
+        - 兄弟定位fromParent
+        有时候父元素不好定位，当时跟它相邻的兄弟元素很好定位，这时候就可以通过兄弟元素，找到同一父级元素下的子元素
+        brther='resourceId("com.baidu.yuedu:id/lefttitle").fromParent(text("用户"))'
+        """
+
+    def test_scroll_find_element(self):
+        self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("热门")').click()
+        self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR,value='new UiScrollable(new UiSelector().'
+                                                                       'scrollable(true).instance(0)).'
+                                                                       'scrollIntoView(new UiSelector().text("明大教主").'
+                                                                       ' instance(0));').click()
+        sleep(5)
 
 if __name__ == '__main__':
     pytest.main()
