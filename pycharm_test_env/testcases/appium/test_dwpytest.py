@@ -12,6 +12,8 @@ from selenium.webdriver.common.by import By
 from time import  sleep
 
 from selenium.webdriver.remote.mobile import Mobile
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class TestDw():
@@ -26,7 +28,7 @@ class TestDw():
         desire_caps['unicodeKeyBoard'] ="true"
         desire_caps['resetKeyBoard'] = "true"
         # 首次启动不停止app
-        #desire_caps['dontStopAppOnReset'] = "true"
+        desire_caps['dontStopAppOnReset'] = "true"
         desire_caps['skipDeviceInitialzation'] = 'true'
         self.driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desire_caps)
         self.driver.implicitly_wait(10)
@@ -111,6 +113,12 @@ android.widget.FrameLayout[2] 股票标签的xpath
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")
         self.driver.find_element(by=By.XPATH,value="//*[@resource-id='com.xueqiu.android:id/name' and @text='阿里巴巴']").click()
+        """
+        #这样会找不到，因为是孙子节点，所以要用下面那种形式，加多一个/代表使用相对路径
+//*[@text="09988"]/../../*[@resource-id='com.xueqiu.android:id/current_price_dtv']
+
+//*[@text="09988"]/../..//*[@resource-id='com.xueqiu.android:id/current_price_dtv']
+        """
         current_price = self.driver.find_element(by=By.XPATH,value="//*[@text='09988']/../..//*[@resource-id='com.xueqiu.android:id/current_price_dtv']").text
         print(f"当前09988 对应的股价价格是:{current_price}")
         assert float(current_price) > 90
@@ -142,6 +150,7 @@ android.widget.FrameLayout[2] 股票标签的xpath
         brther='resourceId("com.baidu.yuedu:id/lefttitle").fromParent(text("用户"))'
         """
 
+    @pytest.mark.skip
     def test_scroll_find_element(self):
         self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("热门")').click()
         self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR,value='new UiScrollable(new UiSelector().'
@@ -149,6 +158,26 @@ android.widget.FrameLayout[2] 股票标签的xpath
                                                                        'scrollIntoView(new UiSelector().text("明大教主").'
                                                                        ' instance(0));').click()
         sleep(5)
+
+
+    def test_get_current(self):
+        self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
+        self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")
+        self.driver.find_element(by=By.XPATH,value="//*[@resource-id='com.xueqiu.android:id/name' and @text='阿里巴巴']").click()
+        """
+        #这样会找不到，因为是孙子节点，所以要用下面那种形式，加多一个/代表使用相对路径
+    //*[@text="09988"]/../../*[@resource-id='com.xueqiu.android:id/current_price_dtv']
+
+    //*[@text="09988"]/../..//*[@resource-id='com.xueqiu.android:id/current_price_dtv']
+            """
+        locator = (By.XPATH,"//*[@text='09988']/../..//*[@resource-id='com.xueqiu.android:id/current_price_dtv']")
+        WebDriverWait(self.driver,10).until(expected_conditions.element_to_be_clickable(locator))
+        ele = self.driver.find_element(*locator)
+
+        # WebDriverWait(self.driver,10).until( lambda x: x.find_element(*locator)) 相当于上面两条语句叠加
+        current_price = ele.text
+        print(f"当前09988 对应的股价价格是:{current_price}")
+        assert float(current_price) > 80
 
 if __name__ == '__main__':
     pytest.main()
