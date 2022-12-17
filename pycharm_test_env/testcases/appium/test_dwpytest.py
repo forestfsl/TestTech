@@ -14,7 +14,7 @@ from time import  sleep
 from selenium.webdriver.remote.mobile import Mobile
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-
+from hamcrest import *
 
 class TestDw():
     def setup(self):
@@ -58,7 +58,11 @@ class TestDw():
         这里当前价格为什么不通过android.widget.TextView 来定义i，是因为这个地方有多处调用
         """
         current_price = float(self.driver.find_element(by=By.ID,value="com.xueqiu.android:id/current_price_dtv").text)
+        expect_price = 170
+        #assert_that(current_price, close_to(expect_price,expect_price * 0.1))
+
         assert current_price > 90
+
         sleep(3)
 
     @pytest.mark.skip
@@ -159,7 +163,7 @@ android.widget.FrameLayout[2] 股票标签的xpath
                                                                        ' instance(0));').click()
         sleep(5)
 
-
+    @pytest.mark.skip
     def test_get_current(self):
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")
@@ -178,6 +182,17 @@ android.widget.FrameLayout[2] 股票标签的xpath
         current_price = ele.text
         print(f"当前09988 对应的股价价格是:{current_price}")
         assert float(current_price) > 80
+
+    @pytest.mark.skip
+    def test_getattr(self):
+        search_ele = self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search")
+        print(search_ele.get_attribute("content-desc"))
+        print(search_ele.get_attribute("resource-id"))
+        print(search_ele.get_attribute("enabled"))
+        print(search_ele.get_attribute("clickable"))
+        print(search_ele.get_attribute("bounds"))
+
+
 
 if __name__ == '__main__':
     pytest.main()
