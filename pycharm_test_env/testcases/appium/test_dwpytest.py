@@ -9,7 +9,7 @@ from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
-from time import  sleep
+from time import sleep
 
 from selenium.webdriver.remote.mobile import Mobile
 from selenium.webdriver.support import expected_conditions
@@ -163,7 +163,7 @@ android.widget.FrameLayout[2] 股票标签的xpath
                                                                        ' instance(0));').click()
         sleep(5)
 
-    @pytest.mark.skip
+    #@pytest.mark.skip
     def test_get_current(self):
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")

@@ -18,5 +18,5 @@ class TestAssert():
 
     def test_hamrest(self):
         #assert_that(10, equal_to(9), '这是一个提示')
-        assert_that(8,close_to(10,2))
+        assert_that(86.79,close_to(87,2))
         assert_that("contains some string", contains_string("string"))
