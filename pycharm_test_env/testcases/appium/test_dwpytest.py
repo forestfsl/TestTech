@@ -163,7 +163,7 @@ android.widget.FrameLayout[2] 股票标签的xpath
                                                                        ' instance(0));').click()
         sleep(5)
 
-    #@pytest.mark.skip
+    @pytest.mark.skip
     def test_get_current(self):
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/home_search").click()
         self.driver.find_element(by=By.ID, value="com.xueqiu.android:id/search_input_text").send_keys("阿里巴巴")
@@ -192,6 +192,9 @@ android.widget.FrameLayout[2] 股票标签的xpath
         print(search_ele.get_attribute("clickable"))
         print(search_ele.get_attribute("bounds"))
 
+    def test_temp(self):
+        self.driver.find_element("xpath", "//*[@text='自选']").click()
+        sleep(10)
 
 
 if __name__ == '__main__':
