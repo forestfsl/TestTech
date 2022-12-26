@@ -8,6 +8,7 @@ from time import sleep
 
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -48,15 +49,15 @@ class TestBrowser():
         #打印窗口看看有没有切换(>phonenumber_locator = (MobileBy.ID, 'phone-number') 出现这个情况找不到)
        # print(self.driver.window_handles)
         print(self.driver.contexts)
-        print(self.driver.current_window_handle)
+        #print(self.driver.current_window_handle)
         #kaihu_window = self.driver.window_handles[-1]
         #self.driver.switch_to.context(self.driver.contexts[-1])
         #显式等待
         #phonenumber_locator = (MobileBy.ID, 'phone-number')
-        phonenumber_locator1 = (MobileBy.XPATH, "phone-/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]/android.widget.EditText")
-        WebDriverWait(self.driver, 6).until(expected_conditions.visibility_of_element_located(phonenumber_locator1))
+        #Wait(self.driver, 6).until(expected_conditions.visibility_of_element_located(phonenumber_locator1))
 
-        self.driver.find_element(*phonenumber_locator1).send_keys("15013339532")
+        #self.driver.find_element(*phonenumber_locator1).send_keys("15013339532")
+        self.driver.find_element(by=By.XPATH,value="phone-/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]/android.widget.EditText").send_keys("15013339531")
         #self.driver.find_element(MobileBy.ID,'code').send_keys("1234")
         self.driver.find_element(MobileBy.XPATH,'/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[4]/android.widget.EditText').send_keys("1234")
         self.driver.find_element(by=MobileBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("立即开户")').click()
