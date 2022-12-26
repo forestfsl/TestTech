@@ -16,9 +16,13 @@ class TestJiaohu:
         desire_caps = {}
         desire_caps['platformName'] = 'Android'
         desire_caps['platformVersion'] = '6.0'
+        #deviceName 这个属性并不能说明一个什么东西，因为默认会使用adb devices 命令下第一个的来运行，
+        #这里这个属性只是一个解释性文字，改成aaa也可以的，任意的，如果adb devices下面有多个设备，想指定的话，需要通过uuid
         desire_caps['deviceName'] = 'emulator-5556'
+        desire_caps['udid'] = 'emulator-5556'
         desire_caps['appPackage'] = 'com.xueqiu.android'
         desire_caps['appActivity'] = '.mainnesting.view.MainNestingActivity'
+        #noReset fullreset dontStopAppOnReset
         desire_caps['noReset'] = "true"
         desire_caps['unicodeKeyBoard'] = "true"
         desire_caps['resetKeyBoard'] = "true"
@@ -27,6 +31,12 @@ class TestJiaohu:
         desire_caps['dontStopAppOnReset'] = "true"
         desire_caps['skipServerInstallation'] = 'true'
         desire_caps['skipDeviceInitialzation'] = 'true'
+        #授权
+        desire_caps['autoGrantPermissions'] = True
+        #超时属性 5分钟内都不会超时
+        desire_caps['newCommandTimeout'] = 300
+        #下面这个参数用来启动模拟器,名字填写emulator -list-avds 中看到的名字
+        desire_caps['avd'] = 'Pixel_XL_API_33'
         self.driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desire_caps)
         self.driver.implicitly_wait(10)
 
